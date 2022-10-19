@@ -1,15 +1,5 @@
 .create-room {
   display: flex;
-  flex-direction: column;
-
-  height: 100vh;
-  padding: 56px;
-
-  background: var(--bg);
-}
-
-.create-room__main {
-  display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;

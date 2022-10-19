@@ -1,0 +1,24 @@
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100%;
+  padding: 0 50px;
+}
+
+.home__video {
+  height: 380px;
+  width: 600px;
+  border-radius: 6px;
+
+  background: black;
+}
+
+.home__chat {
+  height: 380px;
+  width: 300px;
+  border-radius: 6px;
+
+  background: white;
+}

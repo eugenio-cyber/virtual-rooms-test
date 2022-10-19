@@ -4,9 +4,9 @@ import Header from "../../components/Header";
 
 const CreateRoom = () => {
   return (
-    <div className='create-room'>
+    <div className='container'>
       <Header />
-      <main className='create-room__main'>
+      <main className='create-room'>
         <div className='create-room__card'>
           <h2 className='create-room__title'>Quer assistir algo?</h2>
           <button className='create-room__button'>Criar sua sala</button>

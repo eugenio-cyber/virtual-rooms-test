@@ -30,3 +30,13 @@ code {
 button {
   cursor: pointer;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+  padding: 56px;
+
+  background: var(--bg);
+}
