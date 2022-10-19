@@ -1,0 +1,56 @@
+.create-room {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+  padding: 56px;
+
+  background: var(--bg);
+}
+
+.create-room__main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+
+  height: 100%;
+}
+
+.create-room__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+
+  width: 420px;
+  padding: 48px;
+  border-radius: 6px;
+
+  background: var(--color-2);
+}
+
+.create-room__image {
+  width: 50%;
+}
+
+.create-room__title {
+  color: var(--color-5);
+}
+
+.create-room__button {
+  cursor: pointer;
+
+  padding: 16px 20px;
+  border: none;
+  border-radius: 8px;
+
+  background: var(--color-3);
+  color: var(--color-4);
+}
+
+.create-room__button:hover {
+  transition: 0.3s;
+  background: var(--color-5);
+}
