@@ -33,7 +33,7 @@ function Home() {
 
   return (
     <div className='container'>
-      <Header />
+      <Header text='Sair' />
       <main className='home'>
         <Video />
         <section className='home__chat'>

@@ -10,12 +10,12 @@
 }
 
 .header__logo {
-  cursor: pointer;
-
   color: var(--color-4);
 }
 
 .header__list {
+  cursor: pointer;
+
   display: flex;
   align-items: center;
   gap: 20px;
@@ -28,7 +28,6 @@
 }
 
 .header__link {
-  cursor: pointer;
   list-style: none;
 
   color: var(--color-4);

@@ -36,6 +36,9 @@
   border: none;
   border-radius: 8px;
 
+  font-weight: 400;
+  font-size: 18px;
+
   background: var(--color-3);
   color: var(--color-4);
 }
