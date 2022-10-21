@@ -31,9 +31,9 @@ const Home = () => {
     setMessage("");
   };
 
-  useEffect(() => {
-    socket.emit("chat.message", data);
-  }, [data.url]);
+  // useEffect(() => {
+  //   socket.emit("chat.message", data);
+  // }, [data.url]);
 
   useEffect(() => {
     const handleEditData = (newData) => {
