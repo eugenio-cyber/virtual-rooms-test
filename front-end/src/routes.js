@@ -2,11 +2,12 @@ import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import CreateRoom from "./pages/CreateRoom";
 import Home from "./pages/Home";
 import UserContext from "./context/UserContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { getItem } from "./utils/storage";
 
 const ProjectRoutes = () => {
-  const ProtectRoutes = (redirectTo) => {
-    const isAuthenticated = true;
+  const ProtectRoutes = ({ redirectTo }) => {
+    const isAuthenticated = getItem("name");
 
     return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
   };
