@@ -13,9 +13,13 @@ const io = socket(server, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("chat.message", (data) => {
+  socket.on("chat.data", (data) => {
     data.connections = socket.client.server.eio.clientsCount;
-    io.emit("chat.message", data);
+    io.emit("chat.data", data);
+  });
+
+  socket.on("chat.url", (urlCode) => {
+    io.emit("chat.url", urlCode);
   });
 });
 

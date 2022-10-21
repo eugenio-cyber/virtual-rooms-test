@@ -2,9 +2,8 @@ import "./styles.css";
 import UserContext from "../../context/UserContext";
 import { useContext } from "react";
 
-const Video = () => {
-  const { url, setUrl, urlCode, setUrlCode, data, setData } =
-    useContext(UserContext);
+const Video = ({ socket }) => {
+  const { url, setUrl, urlCode, setUrlCode } = useContext(UserContext);
 
   const handleSendUrl = (e) => {
     e.preventDefault();
@@ -17,11 +16,11 @@ const Video = () => {
       /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
     const match = url.match(regExp);
 
-    setUrlCode(match && match[7].length === 11 ? match[7] : false);
-
-    setData({ ...data, [url]: urlCode });
-
-    setUrl("");
+    if (match && match[7].length === 11) {
+      setUrlCode(match[7]);
+      socket.emit("chat.url", match[7]);
+      setUrl("");
+    }
   };
 
   return (

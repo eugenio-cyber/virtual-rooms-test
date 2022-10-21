@@ -16,7 +16,6 @@ const ProjectRoutes = () => {
   const [urlCode, setUrlCode] = useState("");
   const [message, setMessage] = useState("");
   const [data, setData] = useState({
-    url: "",
     connections: 0,
     messages: [],
   });

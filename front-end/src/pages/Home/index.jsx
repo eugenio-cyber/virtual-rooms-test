@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 import "./styles.css";
 import io from "socket.io-client";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { v4 as uuid } from "uuid";
 import Video from "../../components/Video";
 import UserContext from "../../context/UserContext";
@@ -11,7 +11,8 @@ const socket = io("http://localhost:8080");
 socket.on("connect");
 
 const Home = () => {
-  const { message, setMessage, data, setData } = useContext(UserContext);
+  const { message, setMessage, data, setData, urlCode, setUrlCode } =
+    useContext(UserContext);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -27,13 +28,20 @@ const Home = () => {
       message,
     });
 
-    socket.emit("chat.message", localData);
+    socket.emit("chat.data", localData);
     setMessage("");
   };
 
-  // useEffect(() => {
-  //   socket.emit("chat.message", data);
-  // }, [data.url]);
+  useEffect(() => {
+    const handleEditUrlCode = (newUrlCode) => {
+      console.log(newUrlCode);
+      setUrlCode(newUrlCode);
+    };
+
+    socket.on("chat.url", handleEditUrlCode);
+
+    return () => socket.off("chat.url", handleEditUrlCode);
+  }, [urlCode]);
 
   useEffect(() => {
     const handleEditData = (newData) => {
@@ -41,16 +49,16 @@ const Home = () => {
       setData({ ...newData });
     };
 
-    socket.on("chat.message", handleEditData);
+    socket.on("chat.data", handleEditData);
 
-    return () => socket.off("chat.message", handleEditData);
+    return () => socket.off("chat.data", handleEditData);
   }, [data.messages]);
 
   return (
     <div className='container'>
       <Header text='Sair' />
       <main className='home'>
-        <Video />
+        <Video socket={socket} />
         <section className='home__chat'>
           <div className='home__message-list'>
             {data.messages.map((m, index) => {
