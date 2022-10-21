@@ -3,6 +3,7 @@ import "./styles.css";
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
+import Video from "../../components/Video";
 
 const myId = uuid();
 const socket = io("http://localhost:8080");
@@ -34,7 +35,7 @@ function Home() {
     <div className='container'>
       <Header />
       <main className='home'>
-        <section className='home__video'></section>
+        <Video />
         <section className='home__chat'>
           <div className='home__message-list'>
             {messages.map((m, index) => {
@@ -50,18 +51,17 @@ function Home() {
               );
             })}
           </div>
-          <div className='home__action'>
+          <form className='home__action' action='' onSubmit={sendMessage}>
             <input
               className='home__input'
               type='text'
               placeholder='Digite sua mensagem'
               onChange={(e) => setMessage(e.target.value)}
               value={message}
+              required
             />
-            <button className='home__button' onClick={() => sendMessage()}>
-              +
-            </button>
-          </div>
+            <button className='home__button'>+</button>
+          </form>
         </section>
       </main>
     </div>

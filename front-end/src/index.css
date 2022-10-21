@@ -10,7 +10,7 @@
   --color-2: #14878a;
   --color-3: #d7e4e7;
   --color-4: #11486d;
-  --color-5: #ffff;
+  --color-5: #ffffff;
 }
 
 body {
@@ -31,12 +31,17 @@ button {
   cursor: pointer;
 }
 
+input:focus {
+  box-shadow: 0 0 0 0;
+  outline: 0;
+}
+
 .container {
   display: flex;
   flex-direction: column;
 
   height: 100vh;
-  padding: 56px;
+  padding: 30px 56px;
 
   background: var(--bg);
 }
