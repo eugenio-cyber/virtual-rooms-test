@@ -1,35 +1,50 @@
 import Header from "../../components/Header";
 import "./styles.css";
 import io from "socket.io-client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { v4 as uuid } from "uuid";
 import Video from "../../components/Video";
+import UserContext from "../../context/UserContext";
 
 const myId = uuid();
 const socket = io("http://localhost:8080");
 socket.on("connect");
 
-function Home() {
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+const Home = () => {
+  const { message, setMessage, data, setData } = useContext(UserContext);
 
-  const sendMessage = () => {
-    if (message.trim()) {
-      socket.emit("chat.message", {
-        id: myId,
-        message,
-      });
-      setMessage("");
+  const sendMessage = (e) => {
+    e.preventDefault();
+
+    if (!message.trim()) {
+      return;
     }
+
+    let localData = { ...data };
+
+    localData.messages.push({
+      id: myId,
+      message,
+    });
+
+    socket.emit("chat.message", localData);
+    setMessage("");
   };
 
   useEffect(() => {
-    const handleNewMessage = (newMessage) => {
-      setMessages([...messages, newMessage]);
+    socket.emit("chat.message", data);
+  }, [data.url]);
+
+  useEffect(() => {
+    const handleEditData = (newData) => {
+      console.log(newData);
+      setData({ ...newData });
     };
-    socket.on("chat.message", handleNewMessage);
-    return () => socket.off("chat.message", handleNewMessage);
-  }, [messages]);
+
+    socket.on("chat.message", handleEditData);
+
+    return () => socket.off("chat.message", handleEditData);
+  }, [data.messages]);
 
   return (
     <div className='container'>
@@ -38,7 +53,7 @@ function Home() {
         <Video />
         <section className='home__chat'>
           <div className='home__message-list'>
-            {messages.map((m, index) => {
+            {data.messages.map((m, index) => {
               return (
                 <span
                   className={`home__message ${
@@ -66,6 +81,6 @@ function Home() {
       </main>
     </div>
   );
-}
+};
 
 export default Home;

@@ -1,9 +1,10 @@
 import "./styles.css";
-import { useState } from "react";
+import UserContext from "../../context/UserContext";
+import { useContext } from "react";
 
 const Video = () => {
-  const [url, setUrl] = useState("");
-  const [urlCode, setUrlCode] = useState("");
+  const { url, setUrl, urlCode, setUrlCode, data, setData } =
+    useContext(UserContext);
 
   const handleSendUrl = (e) => {
     e.preventDefault();
@@ -17,6 +18,9 @@ const Video = () => {
     const match = url.match(regExp);
 
     setUrlCode(match && match[7].length === 11 ? match[7] : false);
+
+    setData({ ...data, [url]: urlCode });
+
     setUrl("");
   };
 
