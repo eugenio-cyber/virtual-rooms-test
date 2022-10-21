@@ -1,19 +1,21 @@
 import "./styles.css";
 import BackgroundImage from "../../assets/virtual-room.png";
 import Header from "../../components/Header";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import BasicModal from "../../components/BasicModal";
 
 const CreateRoom = () => {
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className='container'>
-      <Header text='Entrar' />
+      <Header text='Criar Sala' setShowModal={setShowModal} />
       <main className='create-room'>
         <div className='create-room__card'>
           <h2 className='create-room__title'>Quer assistir algo?</h2>
           <button
             className='create-room__button'
-            onClick={() => navigate("/home")}
+            onClick={() => setShowModal(true)}
           >
             Criar sua sala
           </button>
@@ -24,6 +26,9 @@ const CreateRoom = () => {
           alt='Imagem de fundo'
         />
       </main>
+      {showModal && (
+        <BasicModal showModal={showModal} setShowModal={setShowModal} />
+      )}
     </div>
   );
 };

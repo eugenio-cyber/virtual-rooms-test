@@ -1,0 +1,27 @@
+.modal__form {
+  display: flex;
+  width: 100%;
+}
+
+.modal__input {
+  width: 80%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.modal__button {
+  width: 20%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+
+  font-weight: 400;
+  font-size: 18px;
+
+  color: var(--color-5);
+  background: var(--color-4);
+}
