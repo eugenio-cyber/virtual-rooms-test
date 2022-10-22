@@ -1,15 +1,17 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { style } from "./styles.js";
 import { setItem } from "../../utils/storage";
+import UserContext from "../../context/UserContext";
 import "./styles.css";
 
 const BasicModal = ({ showModal, setShowModal }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const { data, socket } = useContext(UserContext);
 
   const handleAddName = (e) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ const BasicModal = ({ showModal, setShowModal }) => {
       return;
     }
 
+    socket.emit("chat.users", data);
     setItem("name", name);
     navigate("/home");
   };
