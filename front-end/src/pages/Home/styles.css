@@ -29,22 +29,6 @@
   gap: 6px;
 }
 
-.home__message {
-  width: 100%;
-  padding: 5px 10px;
-  border-radius: 8px;
-}
-
-.mine {
-  color: var(--color-3);
-  background: var(--color-2);
-}
-
-.other {
-  color: var(--color-2);
-  background: var(--color-3);
-}
-
 .home__action {
   display: flex;
   width: 100%;
