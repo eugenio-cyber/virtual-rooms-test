@@ -1,18 +1,20 @@
 import Header from "../../components/Header";
 import "./styles.css";
-import io from "socket.io-client";
 import { useEffect, useContext } from "react";
 import { v4 as uuid } from "uuid";
 import Video from "../../components/Video";
 import UserContext from "../../context/UserContext";
+import { useState } from "react";
+import { getItem } from "../../utils/storage";
+import Message from "../../components/Message";
 
 const myId = uuid();
-const socket = io("http://localhost:8080");
-socket.on("connect");
 
 const Home = () => {
-  const { message, setMessage, data, setData, urlCode, setUrlCode } =
+  const { message, setMessage, data, setData, urlCode, setUrlCode, socket } =
     useContext(UserContext);
+
+  const [name, setName] = useState();
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -34,7 +36,6 @@ const Home = () => {
 
   useEffect(() => {
     const handleEditUrlCode = (newUrlCode) => {
-      console.log(newUrlCode);
       setUrlCode(newUrlCode);
     };
 
@@ -45,7 +46,6 @@ const Home = () => {
 
   useEffect(() => {
     const handleEditData = (newData) => {
-      console.log(newData);
       setData({ ...newData });
     };
 
@@ -54,6 +54,22 @@ const Home = () => {
     return () => socket.off("chat.data", handleEditData);
   }, [data.messages]);
 
+  useEffect(() => {
+    const handleAddConnection = (ar) => {
+      let localData = { ...data };
+      localData.connections = ar.connections;
+
+      setData(localData);
+    };
+
+    socket.on("chat.users", handleAddConnection);
+
+    return () => socket.off("chat.users", handleAddConnection);
+  }, [data.connections]);
+
+  useEffect(() => {
+    setName(getItem("name"));
+  }, []);
   return (
     <div className='container'>
       <Header text='Sair' />
@@ -63,14 +79,13 @@ const Home = () => {
           <div className='home__message-list'>
             {data.messages.map((m, index) => {
               return (
-                <span
-                  className={`home__message ${
-                    m.id === myId ? "mine" : "other"
-                  }`}
-                  key={index}
-                >
-                  {m.message}
-                </span>
+                <Message
+                  name={name}
+                  text={m.message}
+                  index={index}
+                  id={m.id}
+                  myId={myId}
+                />
               );
             })}
           </div>
