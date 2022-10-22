@@ -1,9 +1,10 @@
 import "./styles.css";
 import UserContext from "../../context/UserContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Video = ({ socket }) => {
-  const { url, setUrl, urlCode, setUrlCode } = useContext(UserContext);
+  const { urlCode, setUrlCode, data } = useContext(UserContext);
+  const [url, setUrl] = useState("");
 
   const handleSendUrl = (e) => {
     e.preventDefault();
@@ -40,18 +41,20 @@ const Video = ({ socket }) => {
           <h2 className='video__warning'>Nenhum vídeo selecionado</h2>
         )}
       </div>
-
-      <form className='video__action' action='' onSubmit={handleSendUrl}>
-        <input
-          className='video__input'
-          type='text'
-          placeholder='Cole seu do YouTube link aqui'
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          required
-        />
-        <button className='video__button'>Enviar</button>
-      </form>
+      <div className='video__action'>
+        <form className='video__form' action='' onSubmit={handleSendUrl}>
+          <input
+            className='video__input'
+            type='text'
+            placeholder='Cole seu do YouTube link aqui'
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            required
+          />
+          <button className='video__button'>Enviar</button>
+        </form>
+        <span className='video__watching'>{data.connections} conectados</span>
+      </div>
     </section>
   );
 };

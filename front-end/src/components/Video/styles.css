@@ -24,12 +24,18 @@
 
 .video__action {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   width: 100%;
 }
 
+.video__form {
+  display: flex;
+}
+
 .video__input {
-  width: 50%;
+  width: 500px;
   padding: 8px 10px;
   border: none;
   border-bottom: 2px solid var(--color-2);
@@ -40,11 +46,18 @@
 }
 
 .video__button {
-  width: 10%;
   border: none;
 
   border-radius: 0px 0px 6px 0px;
+  padding: 5px 15px;
 
   background: var(--color-2);
   color: var(--color-5);
+}
+
+.video__watching {
+  font-weight: 400;
+  font-size: 14px;
+
+  color: var(--color-2);
 }
