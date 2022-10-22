@@ -1,16 +1,32 @@
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { removeItem } from "../../utils/storage";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
 
 const Header = ({ text, setShowModal }) => {
+  const { data, setData, socket } = useContext(UserContext);
   const navigate = useNavigate();
+
+  const handle = (newData) => {
+    setData({ ...newData });
+  };
+
+  socket.on("chat.leave", handle);
 
   const handleClickLink = () => {
     if (text === "Sair") {
+      let localData = { ...data };
+
+      localData.connections--;
+      setData(localData);
+
+      socket.emit("chat.leave", localData);
       removeItem("name");
       navigate("/");
       return;
     }
+
     setShowModal(true);
   };
 
