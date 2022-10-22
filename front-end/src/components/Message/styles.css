@@ -1,0 +1,33 @@
+.message-mine,
+.message-other {
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.message-mine {
+  background: var(--color-2);
+}
+
+.message-mine__name {
+  color: var(--color-3);
+}
+
+.message-mine__text {
+  color: var(--color-5);
+}
+
+.message-other {
+  background: var(--color-3);
+}
+
+.message-other__name {
+  color: var(--color-2);
+}
+
+.message-other__text {
+  color: var(--color-1);
+}
