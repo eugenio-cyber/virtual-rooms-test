@@ -14,8 +14,16 @@ const io = socket(server, {
 
 io.on("connection", (socket) => {
   socket.on("chat.data", (data) => {
-    data.connections = socket.client.server.eio.clientsCount;
     io.emit("chat.data", data);
+  });
+
+  socket.on("chat.users", (data) => {
+    data.connections = socket.client.server.eio.clientsCount;
+    io.emit("chat.users", data);
+  });
+
+  socket.on("chat.leave", (data) => {
+    io.emit("chat.leave", data);
   });
 
   socket.on("chat.url", (urlCode) => {
