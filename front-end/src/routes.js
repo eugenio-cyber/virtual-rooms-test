@@ -4,6 +4,10 @@ import Home from "./pages/Home";
 import UserContext from "./context/UserContext";
 import { useState } from "react";
 import { getItem } from "./utils/storage";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:8080");
+socket.on("connect");
 
 const ProjectRoutes = () => {
   const ProtectRoutes = ({ redirectTo }) => {
@@ -12,7 +16,6 @@ const ProjectRoutes = () => {
     return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
   };
 
-  const [url, setUrl] = useState("");
   const [urlCode, setUrlCode] = useState("");
   const [message, setMessage] = useState("");
   const [data, setData] = useState({
@@ -27,10 +30,9 @@ const ProjectRoutes = () => {
         setMessage,
         data,
         setData,
-        url,
-        setUrl,
         urlCode,
         setUrlCode,
+        socket,
       }}
     >
       <Routes>
