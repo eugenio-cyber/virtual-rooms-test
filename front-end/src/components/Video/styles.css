@@ -61,3 +61,47 @@
 
   color: var(--color-2);
 }
+
+.video__watching--mobile {
+  display: none;
+
+  font-weight: 400;
+  font-size: 14px;
+
+  color: var(--color-2);
+}
+
+@media (max-width: 450px) {
+  .video {
+    height: 58%;
+    width: 100%;
+  }
+
+  .video__content {
+    height: 90%;
+
+    flex-direction: column;
+  }
+
+  .video__action {
+    justify-content: flex-start;
+
+    height: 10%;
+  }
+
+  .video__form {
+    width: 90%;
+  }
+
+  .video__watching {
+    display: none;
+  }
+
+  .video__watching--mobile {
+    display: block;
+
+    text-align: center;
+
+    width: 10%;
+  }
+}

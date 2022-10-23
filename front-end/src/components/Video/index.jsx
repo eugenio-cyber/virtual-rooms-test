@@ -58,6 +58,7 @@ const Video = ({ setData, data }) => {
           <button className='video__button'>Enviar</button>
         </form>
         <span className='video__watching'>{data.connections} conectados</span>
+        <span className='video__watching--mobile'>{data.connections}</span>
       </div>
     </section>
   );

@@ -11,7 +11,7 @@ import "./styles.css";
 const BasicModal = ({ showModal, setShowModal }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const { users, socket } = useContext(UserContext);
+  const { socket } = useContext(UserContext);
 
   const handleAddName = (e) => {
     e.preventDefault();

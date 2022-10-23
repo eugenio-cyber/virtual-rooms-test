@@ -47,3 +47,22 @@
   transition: 0.3s;
   background: var(--color-5);
 }
+
+@media (max-width: 450px) {
+  .create-room {
+    flex-direction: column-reverse;
+    gap: 14vh;
+  }
+
+  .create-room__card {
+    width: 100%;
+  }
+
+  .create-room__image {
+    width: 100%;
+  }
+
+  .create-room__button {
+    background: var(--color-5);
+  }
+}

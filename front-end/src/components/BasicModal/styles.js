@@ -9,7 +9,10 @@ export const style = {
   justifyContent: "center",
   gap: "28px",
 
-  width: 400,
+  width: {
+    xs: "80%",
+    md: "34%",
+  },
   bgcolor: "white",
   p: 4,
   borderRadius: "6px",
