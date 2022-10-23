@@ -34,6 +34,10 @@ Obs: para sair da sala não feche a janela em questão, prefira clicar no botão
   <img height=30 src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
 </div>
 
+## ⛏️ Feature:
+
+- [ ] Deploy
+
 ## 💬 Feedback
 
 Envie um email para esse endereço <eugenio3@email.com> para dar um feedback, sugerir alguma mudança ou dar uma opnião sobre o projeto.
