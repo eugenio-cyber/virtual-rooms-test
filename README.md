@@ -10,7 +10,7 @@
 
 ## 🔗 Quer acessar o projeto?
 
-[Clique aqui para ver](https://wesleydev.vercel.app/)
+[Clique aqui para ver]()
 
 ## 🏹 Qual o objetivo do projeto?
 
