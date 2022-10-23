@@ -32,6 +32,7 @@ const Home = () => {
 
     localData.messages.push({
       id: myId,
+      name,
       message,
     });
 
@@ -83,14 +84,12 @@ const Home = () => {
         <Video urlCode={urlCode} setUrlCode={setUrlCode} data={data} />
         <section className='home__chat'>
           <div className='home__message-list'>
-            {data.messages.map((m, index) => {
+            {data.messages.map((messageInformation, index) => {
               return (
                 <Message
-                  name={name}
-                  text={m.message}
-                  index={index}
-                  id={m.id}
                   myId={myId}
+                  index={index}
+                  messageInformation={messageInformation}
                 />
               );
             })}
