@@ -16,23 +16,14 @@ const ProjectRoutes = () => {
     return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
   };
 
-  const [urlCode, setUrlCode] = useState("");
-  const [message, setMessage] = useState("");
-  const [data, setData] = useState({
-    connections: 0,
-    messages: [],
-  });
+  const [users, setUsers] = useState(0);
 
   return (
     <UserContext.Provider
       value={{
-        message,
-        setMessage,
-        data,
-        setData,
-        urlCode,
-        setUrlCode,
         socket,
+        users,
+        setUsers,
       }}
     >
       <Routes>

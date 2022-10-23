@@ -4,8 +4,8 @@ import { removeItem } from "../../utils/storage";
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 
-const Header = ({ text, setShowModal }) => {
-  const { data, setData, socket } = useContext(UserContext);
+const Header = ({ text, setShowModal, data, setData }) => {
+  const { socket } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handle = (newData) => {

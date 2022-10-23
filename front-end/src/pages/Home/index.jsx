@@ -11,10 +11,15 @@ import Message from "../../components/Message";
 const myId = uuid();
 
 const Home = () => {
-  const { message, setMessage, data, setData, urlCode, setUrlCode, socket } =
-    useContext(UserContext);
+  const { socket } = useContext(UserContext);
 
   const [name, setName] = useState();
+  const [message, setMessage] = useState("");
+  const [urlCode, setUrlCode] = useState("");
+  const [data, setData] = useState({
+    connections: 0,
+    messages: [],
+  });
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -55,9 +60,9 @@ const Home = () => {
   }, [data.messages]);
 
   useEffect(() => {
-    const handleAddConnection = (ar) => {
+    const handleAddConnection = (users) => {
       let localData = { ...data };
-      localData.connections = ar.connections;
+      localData.connections = users;
 
       setData(localData);
     };
@@ -70,11 +75,12 @@ const Home = () => {
   useEffect(() => {
     setName(getItem("name"));
   }, []);
+
   return (
     <div className='container'>
-      <Header text='Sair' />
+      <Header text='Sair' data={data} setData={setData} />
       <main className='home'>
-        <Video socket={socket} />
+        <Video urlCode={urlCode} setUrlCode={setUrlCode} data={data} />
         <section className='home__chat'>
           <div className='home__message-list'>
             {data.messages.map((m, index) => {

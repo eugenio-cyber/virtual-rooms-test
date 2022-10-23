@@ -17,9 +17,9 @@ io.on("connection", (socket) => {
     io.emit("chat.data", data);
   });
 
-  socket.on("chat.users", (data) => {
-    data.connections = socket.client.server.eio.clientsCount;
-    io.emit("chat.users", data);
+  socket.on("chat.users", (users) => {
+    users = socket.client.server.eio.clientsCount;
+    io.emit("chat.users", users);
   });
 
   socket.on("chat.leave", (data) => {

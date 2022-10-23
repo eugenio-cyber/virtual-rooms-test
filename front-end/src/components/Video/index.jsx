@@ -2,8 +2,8 @@ import "./styles.css";
 import UserContext from "../../context/UserContext";
 import { useContext, useState } from "react";
 
-const Video = ({ socket }) => {
-  const { urlCode, setUrlCode, data } = useContext(UserContext);
+const Video = ({ urlCode, setUrlCode, data }) => {
+  const { socket } = useContext(UserContext);
   const [url, setUrl] = useState("");
 
   const handleSendUrl = (e) => {

@@ -11,7 +11,7 @@ import "./styles.css";
 const BasicModal = ({ showModal, setShowModal }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const { data, socket } = useContext(UserContext);
+  const { users, socket } = useContext(UserContext);
 
   const handleAddName = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const BasicModal = ({ showModal, setShowModal }) => {
       return;
     }
 
-    socket.emit("chat.users", data);
+    socket.emit("chat.users", users);
     setItem("name", name);
     navigate("/home");
   };
