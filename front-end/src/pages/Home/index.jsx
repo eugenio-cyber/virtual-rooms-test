@@ -17,6 +17,7 @@ const Home = () => {
   const [message, setMessage] = useState("");
   const [urlCode, setUrlCode] = useState("");
   const [data, setData] = useState({
+    urlCode: "",
     connections: 0,
     messages: [],
   });
@@ -86,7 +87,7 @@ const Home = () => {
     <div className='container'>
       <Header text='Sair' data={data} setData={setData} />
       <main className='home'>
-        <Video urlCode={urlCode} setUrlCode={setUrlCode} data={data} />
+        <Video data={data} setData={setData} />
         <section className='home__chat'>
           <div className='home__message-list'>
             {data.messages.map((messageInformation, index) => {

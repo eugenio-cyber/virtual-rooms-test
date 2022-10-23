@@ -2,7 +2,7 @@ import "./styles.css";
 import UserContext from "../../context/UserContext";
 import { useContext, useState } from "react";
 
-const Video = ({ urlCode, setUrlCode, data }) => {
+const Video = ({ setData, data }) => {
   const { socket } = useContext(UserContext);
   const [url, setUrl] = useState("");
 
@@ -18,8 +18,12 @@ const Video = ({ urlCode, setUrlCode, data }) => {
     const match = url.match(regExp);
 
     if (match && match[7].length === 11) {
-      setUrlCode(match[7]);
-      socket.emit("chat.url", match[7]);
+      const localData = { ...data };
+      localData.urlCode = match[7];
+
+      setData({ ...localData });
+
+      socket.emit("chat.update", localData);
       setUrl("");
     }
   };
@@ -27,11 +31,11 @@ const Video = ({ urlCode, setUrlCode, data }) => {
   return (
     <section className='video'>
       <div className='video__content'>
-        {urlCode ? (
+        {data.urlCode ? (
           <iframe
             width='100%'
             height='100%'
-            src={`https://www.youtube.com/embed/${urlCode}`}
+            src={`https://www.youtube.com/embed/${data.urlCode}`}
             title='Vídeo'
             frameborder='0'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'

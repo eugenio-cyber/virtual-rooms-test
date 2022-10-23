@@ -1,3 +1,3 @@
-let db = { connections: 0, messages: [] };
+let db = { urlCode: "", connections: 0, messages: [] };
 
 module.exports = db;
