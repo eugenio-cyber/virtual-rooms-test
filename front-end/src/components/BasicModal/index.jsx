@@ -20,8 +20,8 @@ const BasicModal = ({ showModal, setShowModal }) => {
       return;
     }
 
-    socket.emit("chat.users", users);
     setItem("name", name);
+    socket.emit("chat.open");
     navigate("/home");
   };
 

@@ -36,7 +36,7 @@ const Home = () => {
       message,
     });
 
-    socket.emit("chat.data", localData);
+    socket.emit("chat.update", localData);
     setMessage("");
   };
 
@@ -51,30 +51,35 @@ const Home = () => {
   }, [urlCode]);
 
   useEffect(() => {
-    const handleEditData = (newData) => {
+    const updateData = (newData) => {
       setData({ ...newData });
     };
 
-    socket.on("chat.data", handleEditData);
+    socket.on("chat.update", updateData);
 
-    return () => socket.off("chat.data", handleEditData);
+    return () => socket.off("chat.update", updateData);
   }, [data.messages]);
 
   useEffect(() => {
-    const handleAddConnection = (users) => {
-      let localData = { ...data };
-      localData.connections = users;
-
-      setData(localData);
+    const getData = (db) => {
+      setData({ ...db });
     };
 
-    socket.on("chat.users", handleAddConnection);
+    socket.on("chat.leave", getData);
 
-    return () => socket.off("chat.users", handleAddConnection);
-  }, [data.connections]);
+    return () => socket.off("chat.leave", getData);
+  }, [data]);
 
   useEffect(() => {
     setName(getItem("name"));
+
+    const getData = (db) => {
+      setData({ ...db });
+    };
+
+    socket.on("chat.open", getData);
+
+    return () => socket.off("chat.open", getData);
   }, []);
 
   return (

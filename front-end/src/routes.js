@@ -16,14 +16,10 @@ const ProjectRoutes = () => {
     return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
   };
 
-  const [users, setUsers] = useState(0);
-
   return (
     <UserContext.Provider
       value={{
         socket,
-        users,
-        setUsers,
       }}
     >
       <Routes>

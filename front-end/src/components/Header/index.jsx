@@ -8,12 +8,6 @@ const Header = ({ text, setShowModal, data, setData }) => {
   const { socket } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const handle = (newData) => {
-    setData({ ...newData });
-  };
-
-  socket.on("chat.leave", handle);
-
   const handleClickLink = () => {
     if (text === "Sair") {
       let localData = { ...data };
@@ -21,7 +15,7 @@ const Header = ({ text, setShowModal, data, setData }) => {
       localData.connections--;
       setData(localData);
 
-      socket.emit("chat.leave", localData);
+      socket.emit("chat.leave");
       removeItem("name");
       navigate("/");
       return;
