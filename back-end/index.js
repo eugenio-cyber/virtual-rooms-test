@@ -20,7 +20,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat.leave", () => {
-    db.connections--;
+    if (db.connections === 1) {
+      db = { urlCode: "", connections: 0, messages: [] };
+    } else {
+      db.connections--;
+    }
+
     io.emit("chat.leave", db);
   });
 
