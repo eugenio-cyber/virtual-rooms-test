@@ -23,10 +23,10 @@
 
 .home__message-list {
   overflow: hidden;
+  overflow-y: scroll;
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: 6px;
 }
 
