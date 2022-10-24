@@ -2,7 +2,6 @@ import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import CreateRoom from "./pages/CreateRoom";
 import Home from "./pages/Home";
 import UserContext from "./context/UserContext";
-import { useState } from "react";
 import { getItem } from "./utils/storage";
 import io from "socket.io-client";
 

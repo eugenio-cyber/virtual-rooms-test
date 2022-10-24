@@ -4,7 +4,7 @@ import { removeItem } from "../../utils/storage";
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 
-const Header = ({ text, setShowModal, data, setData }) => {
+const Header = ({ text, setShowModal, data, setData, setShowProgress }) => {
   const { socket } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -15,9 +15,14 @@ const Header = ({ text, setShowModal, data, setData }) => {
       localData.connections--;
       setData(localData);
 
-      socket.emit("chat.leave");
-      removeItem("name");
-      navigate("/");
+      setShowProgress(true);
+
+      setTimeout(() => {
+        setShowProgress(false);
+        removeItem("name");
+        socket.emit("chat.leave");
+        navigate("/");
+      }, 1000);
       return;
     }
 

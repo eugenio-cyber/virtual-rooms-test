@@ -3,9 +3,11 @@ import BackgroundImage from "../../assets/virtual-room.png";
 import Header from "../../components/Header";
 import { useState } from "react";
 import BasicModal from "../../components/BasicModal";
+import Progress from "../../components/Progress";
 
 const CreateRoom = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
 
   return (
     <div className='container'>
@@ -27,8 +29,13 @@ const CreateRoom = () => {
         />
       </main>
       {showModal && (
-        <BasicModal showModal={showModal} setShowModal={setShowModal} />
+        <BasicModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          setShowProgress={setShowProgress}
+        />
       )}
+      {showProgress && <Progress />}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import UserContext from "../../context/UserContext";
 import { useState } from "react";
 import { getItem } from "../../utils/storage";
 import Message from "../../components/Message";
+import Progress from "../../components/Progress";
 
 const myId = uuid();
 
@@ -16,6 +17,7 @@ const Home = () => {
   const [name, setName] = useState();
   const [message, setMessage] = useState("");
   const [urlCode, setUrlCode] = useState("");
+  const [showProgress, setShowProgress] = useState(false);
   const [data, setData] = useState({
     urlCode: "",
     connections: 0,
@@ -85,7 +87,12 @@ const Home = () => {
 
   return (
     <div className='container'>
-      <Header text='Sair' data={data} setData={setData} />
+      <Header
+        text='Sair'
+        data={data}
+        setData={setData}
+        setShowProgress={setShowProgress}
+      />
       <main className='home'>
         <Video data={data} setData={setData} />
         <section className='home__chat'>
@@ -113,6 +120,7 @@ const Home = () => {
           </form>
         </section>
       </main>
+      {showProgress && <Progress />}
     </div>
   );
 };

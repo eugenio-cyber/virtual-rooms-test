@@ -8,7 +8,7 @@ import { setItem } from "../../utils/storage";
 import UserContext from "../../context/UserContext";
 import "./styles.css";
 
-const BasicModal = ({ showModal, setShowModal }) => {
+const BasicModal = ({ showModal, setShowModal, setShowProgress }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const { socket } = useContext(UserContext);
@@ -21,8 +21,15 @@ const BasicModal = ({ showModal, setShowModal }) => {
     }
 
     setItem("name", name);
-    socket.emit("chat.open");
-    navigate("/home");
+
+    setShowModal(false);
+    setShowProgress(true);
+
+    setTimeout(() => {
+      setShowProgress(false);
+      socket.emit("chat.open");
+      navigate("/home");
+    }, 1000);
   };
 
   return (
