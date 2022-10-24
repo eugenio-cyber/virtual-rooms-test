@@ -22,7 +22,9 @@ Para usar a aplicação você precisa clonar o repositório em sua máquina e ab
 
 Para navegar na aplicação você precisa clicar no botão "Criar sua sala", em seguida a aplicação irá pedir seu nome. Depois de responder escolha o botão "Entrar". Na página principal você pode ver o número de conectados, conversar com os conectados por meio do chat e transmitir algum vídeo do Youtube de sua escolha. Clicando no botão do canto superior direito chamado "Sair" você consegui sair da sala.
 
-Obs: para sair da sala não feche a janela em questão, prefira clicar no botão do canto superior direito chamado "Sair" para na prejudicar sua experiência na aplicação.
+Observação 01: para sair da sala não feche a janela em questão, prefira clicar no botão do canto superior direito chamado "Sair" para na prejudicar sua experiência na aplicação.
+
+Observação 02: configurei a aplicação "back-end" para rodar com o comando "start", então você deve usar essa palavra para iniciar o projeto. Por exemplo, se você usa o npm então o comando ser: npm run start.
 
 ## 🛠️ Ferramentas utilizadas?
 
