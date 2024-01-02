@@ -9,7 +9,7 @@
 
 ## 🔗 Quer acessar o projeto?
 
-[Não há link para esse projeto]()
+Não há [link]() para esse projeto.
 
 ## 🏹 Qual o objetivo do projeto?
 
