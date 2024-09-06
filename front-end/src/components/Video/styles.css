@@ -55,22 +55,6 @@
   color: var(--color-5);
 }
 
-.video__watching {
-  font-weight: 400;
-  font-size: 14px;
-
-  color: var(--color-2);
-}
-
-.video__watching--mobile {
-  display: none;
-
-  font-weight: 400;
-  font-size: 14px;
-
-  color: var(--color-2);
-}
-
 @media (max-width: 450px) {
   .video {
     height: 58%;
@@ -91,17 +75,5 @@
 
   .video__form {
     width: 90%;
-  }
-
-  .video__watching {
-    display: none;
-  }
-
-  .video__watching--mobile {
-    display: block;
-
-    text-align: center;
-
-    width: 10%;
   }
 }

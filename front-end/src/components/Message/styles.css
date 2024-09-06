@@ -1,33 +1,41 @@
 .message-mine,
 .message-other {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 5px 10px;
   border-radius: 8px;
-
   font-size: 14px;
   font-weight: 400;
 }
 
 .message-mine {
+  align-items: end;
   background: var(--color-2);
 }
 
 .message-mine__name {
-  color: var(--color-3);
-}
-
-.message-mine__text {
   color: var(--color-5);
 }
 
+.message-mine__text {
+  color: var(--color-3);
+}
+
 .message-other {
+  align-items: start;
   background: var(--color-3);
 }
 
 .message-other__name {
-  color: var(--color-2);
+  color: var(--color-6);
 }
 
 .message-other__text {
-  color: var(--color-1);
+  color: var(--color-2);
+}
+
+.message-mine__text,
+.message-other__text {
+  margin-top: 12px;
 }

@@ -1,13 +1,18 @@
 import "./styles.css";
 import BackgroundImage from "../../assets/virtual-room.png";
 import Header from "../../components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BasicModal from "../../components/BasicModal";
 import Progress from "../../components/Progress";
+import { clear } from "../../utils/storage";
 
 const CreateRoom = () => {
   const [showModal, setShowModal] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
+
+  useEffect(() => {
+    clear();
+  }, []);
 
   return (
     <div className='container'>

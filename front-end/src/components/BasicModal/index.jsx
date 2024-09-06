@@ -3,33 +3,31 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import { style } from "./styles.js";
 import { setItem } from "../../utils/storage";
-import UserContext from "../../context/UserContext";
+import { ChatContext } from "../../context/ChatContext.js";
 import "./styles.css";
 
 const BasicModal = ({ showModal, setShowModal, setShowProgress }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const { socket } = useContext(UserContext);
+  const { socket } = useContext(ChatContext);
+  const userId = uuid();
 
   const handleAddName = (e) => {
     e.preventDefault();
+    if (!name.trim()) return;
 
-    if (!name.trim()) {
-      return;
-    }
-
-    setItem("name", name);
-
+    setItem("user_id", userId);
+    socket.emit("set_username", name);
     setShowModal(false);
     setShowProgress(true);
 
     setTimeout(() => {
       setShowProgress(false);
-      socket.emit("chat.open");
       navigate("/home");
-    }, 1000);
+    }, 500);
   };
 
   return (

@@ -11,6 +11,7 @@
   --color-3: #d7e4e7;
   --color-4: #11486d;
   --color-5: #ffffff;
+  --color-6: #000000;
 }
 
 body {
@@ -39,10 +40,8 @@ input:focus {
 .container {
   display: flex;
   flex-direction: column;
-
   height: 100vh;
   padding: 30px 56px;
-
   background: var(--bg);
 }
 

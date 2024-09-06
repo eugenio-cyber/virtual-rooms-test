@@ -1,111 +1,48 @@
 import Header from "../../components/Header";
 import "./styles.css";
 import { useEffect, useContext } from "react";
-import { v4 as uuid } from "uuid";
 import Video from "../../components/Video";
-import UserContext from "../../context/UserContext";
+import { ChatContext } from "../../context/ChatContext";
 import { useState } from "react";
-import { getItem } from "../../utils/storage";
 import Message from "../../components/Message";
 import Progress from "../../components/Progress";
 
-const myId = uuid();
-
 const Home = () => {
-  const { socket } = useContext(UserContext);
+  const { socket } = useContext(ChatContext);
+  const myId = socket.id;
 
-  const [name, setName] = useState();
+  const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState("");
-  const [urlCode, setUrlCode] = useState("");
   const [showProgress, setShowProgress] = useState(false);
-  const [data, setData] = useState({
-    urlCode: "",
-    connections: 0,
-    messages: [],
-  });
+
+  useEffect(() => {
+    socket.on("receive_message", (message_info) => {
+      setMessageList((current) => [...current, message_info]);
+    });
+
+    return () => socket.off("receive_message");
+  }, [socket]);
 
   const sendMessage = (e) => {
     e.preventDefault();
+    if (!message.trim()) return;
 
-    if (!message.trim()) {
-      return;
-    }
-
-    let localData = { ...data };
-
-    localData.messages.push({
-      id: myId,
-      name,
-      message,
-    });
-
-    socket.emit("chat.update", localData);
+    socket.emit("chat_update", message);
     setMessage("");
   };
 
-  useEffect(() => {
-    const handleEditUrlCode = (newUrlCode) => {
-      setUrlCode(newUrlCode);
-    };
-
-    socket.on("chat.url", handleEditUrlCode);
-
-    return () => socket.off("chat.url", handleEditUrlCode);
-  }, [urlCode]);
-
-  useEffect(() => {
-    const updateData = (newData) => {
-      setData({ ...newData });
-    };
-
-    socket.on("chat.update", updateData);
-
-    return () => socket.off("chat.update", updateData);
-  }, [data.messages]);
-
-  useEffect(() => {
-    const getData = (db) => {
-      setData({ ...db });
-    };
-
-    socket.on("chat.leave", getData);
-
-    return () => socket.off("chat.leave", getData);
-  }, [data]);
-
-  useEffect(() => {
-    setName(getItem("name"));
-
-    const getData = (db) => {
-      setData({ ...db });
-    };
-
-    socket.on("chat.open", getData);
-
-    return () => socket.off("chat.open", getData);
-  }, []);
-
   return (
     <div className='container'>
-      <Header
-        text='Sair'
-        data={data}
-        setData={setData}
-        setShowProgress={setShowProgress}
-      />
+      <Header text='Sair' setShowProgress={setShowProgress} />
+
       <main className='home'>
-        <Video data={data} setData={setData} />
+        <Video />
+
         <section className='home__chat'>
           <div className='home__message-list'>
-            {data.messages.map((messageInformation, index) => {
-              return (
-                <Message
-                  myId={myId}
-                  index={index}
-                  messageInformation={messageInformation}
-                />
-              );
-            })}
+            {messageList.map((messageInfo, index) => (
+              <Message myId={myId} key={index} messageInfo={messageInfo} />
+            ))}
           </div>
           <form className='home__action' action='' onSubmit={sendMessage}>
             <input
@@ -120,6 +57,7 @@ const Home = () => {
           </form>
         </section>
       </main>
+
       {showProgress && <Progress />}
     </div>
   );

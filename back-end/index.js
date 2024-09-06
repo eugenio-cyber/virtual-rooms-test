@@ -1,12 +1,7 @@
 const Koa = require("koa");
-const http = require("http");
-const socket = require("socket.io");
-const cors = require("cors");
-let db = require("./db");
-
 const app = new Koa();
-const server = http.createServer(app.callback());
-const io = socket(server, {
+const server = require("http").createServer(app.callback());
+const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
@@ -14,29 +9,21 @@ const io = socket(server, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("chat.update", (data) => {
-    db = { ...data };
-    io.emit("chat.update", db);
+  socket.on("set_username", (username) => {
+    socket.data.username = username;
   });
 
-  socket.on("chat.leave", () => {
-    if (db.connections === 1) {
-      db = { urlCode: "", connections: 0, messages: [] };
-    } else {
-      db.connections--;
-    }
-
-    io.emit("chat.leave", db);
+  socket.on("chat_update", (message) => {
+    io.emit("receive_message", {
+      message,
+      user_id: socket.id,
+      username: socket.data.username,
+    });
   });
 
-  socket.on("chat.open", () => {
-    db.connections++;
-    io.emit("chat.open", db);
-  });
-
-  socket.on("chat.url", (urlCode) => {
-    io.emit("chat.url", urlCode);
+  socket.on("update_url", (url) => {
+    io.emit("receive_url", url);
   });
 });
 
-server.listen(8080);
+server.listen(8080, console.log("Server is running..."));

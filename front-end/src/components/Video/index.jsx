@@ -1,29 +1,30 @@
 import "./styles.css";
-import UserContext from "../../context/UserContext";
-import { useContext, useState } from "react";
+import { ChatContext } from "../../context/ChatContext";
+import { useContext, useState, useEffect } from "react";
 
-const Video = ({ setData, data }) => {
-  const { socket } = useContext(UserContext);
+const Video = ({}) => {
+  const { socket } = useContext(ChatContext);
+  const [urlCode, setUrlCode] = useState("");
   const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    socket.on("receive_url", (newUrlCode) => {
+      setUrlCode(newUrlCode);
+    });
+
+    return () => socket.off("receive_url");
+  }, [socket]);
 
   const handleSendUrl = (e) => {
     e.preventDefault();
-
-    if (!url.trim()) {
-      return;
-    }
+    if (!url.trim()) return;
 
     const regExp =
       /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
     const match = url.match(regExp);
 
     if (match && match[7].length === 11) {
-      const localData = { ...data };
-      localData.urlCode = match[7];
-
-      setData({ ...localData });
-
-      socket.emit("chat.update", localData);
+      socket.emit("update_url", match[7]);
       setUrl("");
     }
   };
@@ -31,15 +32,14 @@ const Video = ({ setData, data }) => {
   return (
     <section className='video'>
       <div className='video__content'>
-        {data.urlCode ? (
+        {urlCode ? (
           <iframe
             width='100%'
             height='100%'
-            src={`https://www.youtube.com/embed/${data.urlCode}`}
+            src={`https://www.youtube.com/embed/${urlCode}?autoplay=1`}
             title='Vídeo'
-            frameborder='0'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-            allowfullscreen
+            allowFullScreen
           ></iframe>
         ) : (
           <h2 className='video__warning'>Nenhum vídeo selecionado</h2>
@@ -57,8 +57,6 @@ const Video = ({ setData, data }) => {
           />
           <button className='video__button'>Enviar</button>
         </form>
-        <span className='video__watching'>{data.connections} conectados</span>
-        <span className='video__watching--mobile'>{data.connections}</span>
       </div>
     </section>
   );

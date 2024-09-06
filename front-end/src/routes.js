@@ -1,26 +1,17 @@
 import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import CreateRoom from "./pages/CreateRoom";
 import Home from "./pages/Home";
-import UserContext from "./context/UserContext";
+import { ChatProvider } from "./context/ChatContext";
 import { getItem } from "./utils/storage";
-import io from "socket.io-client";
-
-const socket = io("http://localhost:8080");
-socket.on("connect");
 
 const ProjectRoutes = () => {
   const ProtectRoutes = ({ redirectTo }) => {
-    const isAuthenticated = getItem("name");
-
+    const isAuthenticated = getItem("user_id");
     return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
   };
 
   return (
-    <UserContext.Provider
-      value={{
-        socket,
-      }}
-    >
+    <ChatProvider>
       <Routes>
         <Route path='/'>
           <Route path='/' element={<CreateRoom />} />
@@ -31,7 +22,7 @@ const ProjectRoutes = () => {
           <Route path='/home' element={<Home />} />
         </Route>
       </Routes>
-    </UserContext.Provider>
+    </ChatProvider>
   );
 };
 
