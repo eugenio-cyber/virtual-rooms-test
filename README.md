@@ -7,10 +7,6 @@
 </p>
 <br>
 
-## 🔗 Quer acessar o projeto?
-
-Não há [link]() para esse projeto.
-
 ## 🏹 Qual o objetivo do projeto?
 
 Tem o objetivo de criar um sistema de exibição de vídeos em salas virtuais.
